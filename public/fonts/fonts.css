@@ -1,0 +1,16 @@
+/* Fonts in public/fonts: NewYork_PERSONAL_USE.otf, AlimamaFangYuanTiVF-Thin.ttf */
+@font-face {
+  font-family: 'NewYork';
+  src: url('/fonts/NewYork_PERSONAL_USE.otf') format('opentype');
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AlimamaFangYuan';
+  src: url('/fonts/AlimamaFangYuanTiVF-Thin.ttf') format('truetype');
+  font-weight: 300 400;
+  font-style: normal;
+  font-display: swap;
+}

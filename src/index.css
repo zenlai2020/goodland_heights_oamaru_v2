@@ -1,0 +1,37 @@
+@import '/fonts/fonts.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 设计稿基准 1440px；截图若为 2x 导出(2880px)，量取时 ÷2 得到设计稿 px */
+:root {
+  --design-base-width: 1440px;
+  --color-primary: #4987A4;
+  --color-bg: #F4F6F6;
+  --color-bg-alt: #F5F4F4;
+  --color-text-muted: #C5C9C8;
+  --nav-height-initial: 78px;
+  --nav-height-scrolled: 56px;
+  --hero-height-initial: 90vh;
+  --hero-height-scrolled: 100vh;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: 'AlimamaFangYuan', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.font-newyork {
+  font-family: 'NewYork', Georgia, serif;
+}
+
+.font-body {
+  font-family: 'AlimamaFangYuan', system-ui, sans-serif;
+}
