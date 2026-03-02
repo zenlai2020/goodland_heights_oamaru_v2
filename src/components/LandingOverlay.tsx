@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 
-// 文字：淡入约 2s（先快后慢）→ 停留 1.5s → 淡出约 2s（先慢后快）
+// 文字：淡入约 2s（先快后慢）→ 停留 0.5s → 淡出约 2s（先慢后快）
 const FADE_IN_MS = 2000
-const DISPLAY_MS = 1500
+const DISPLAY_MS = 500
 const FADE_OUT_MS = 2000
 // 左右门板向两侧推开，先快后慢的缓冲感
 const DOOR_MS = 1000
@@ -92,7 +92,7 @@ export function LandingOverlay({ onComplete }: LandingOverlayProps) {
           }}
         />
       </div>
-      {/* 居中文字：淡入 2s（0→100）→ 停 1.5s → 淡出 2s */}
+      {/* 居中文字：淡入 2s（0→100）→ 停 0.5s → 淡出 2s */}
       <div
         className="absolute inset-0 flex items-center justify-center pointer-events-none"
         style={{ zIndex: 2 }}
