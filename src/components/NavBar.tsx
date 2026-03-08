@@ -29,7 +29,7 @@ interface NavBarProps {
   scrollSwitchPx?: number
 }
 
-export function NavBar({ scrollProgress = 0, hasPassedHero = false, onMenuClick, isHome, variant = 'dark', scrollTop = 0, scrollSwitchPx }: NavBarProps) {
+export function NavBar({ scrollProgress = 0, onMenuClick, isHome, variant = 'dark', scrollTop = 0, scrollSwitchPx }: NavBarProps) {
   const isScrolled = scrollProgress > 0.08
   const sloganOpacity = Math.max(0, 1 - scrollProgress * 1.5)
   const titleTransition = Math.max(0, Math.min((scrollProgress - 0.08) / 0.5, 1))
