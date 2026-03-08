@@ -27,6 +27,10 @@ export function Layout() {
   const scrollSwitchPx = getScrollSwitchPx(location.pathname, windowHeight)
 
   useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [location.pathname])
+
+  useEffect(() => {
     const onResize = () => setWindowHeight(window.innerHeight)
     window.addEventListener('resize', onResize)
     return () => window.removeEventListener('resize', onResize)
