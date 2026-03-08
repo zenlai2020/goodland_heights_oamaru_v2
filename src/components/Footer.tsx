@@ -8,11 +8,14 @@ export function Footer() {
           <p className="font-newyork text-primary text-xl">
             Goodland Heights
           </p>
-          <p className="font-body text-primary/80 text-sm">
-            8 - 123 Main St
+          <p className="font-body text-primary/80 text-sm flex items-center gap-1.5">
+            <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+            +64 12345678
           </p>
           <p className="font-body text-primary/80 text-sm">
-            info@goodlandheights.com
+            info@goodland.co.nz
           </p>
           <div className="flex gap-3 mt-2" aria-label="Social links">
             <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-gray-600 flex items-center justify-center text-white hover:opacity-90 transition-opacity" aria-label="Facebook">
@@ -32,18 +35,21 @@ export function Footer() {
             © 2024 Goodland Heights Oamaru | Terms & Conditions | Privacy
           </p>
         </div>
-        <nav className="flex flex-col gap-2">
-          <Link to="/about" className="font-body text-primary/80 text-sm hover:opacity-100 transition-opacity">
-            About
+        <nav className="flex flex-col gap-2 mt-2 tablet:mt-3">
+          <Link to="/overview" className="font-body text-primary/80 text-sm hover:opacity-100 transition-opacity">
+            Goodland Heights Oamaru
           </Link>
+          <Link to="/joy40" className="font-body text-primary/80 text-sm hover:opacity-100 transition-opacity">
+            Joy 40 - Services Apartment
+          </Link>
+          <Link to="/premiumsection" className="font-body text-primary/80 text-sm hover:opacity-100 transition-opacity">
+            Premium Sections
+          </Link>
+          <span className="font-body text-primary/80 text-sm cursor-default">
+            About Goodland Group
+          </span>
           <Link to="/contact" className="font-body text-primary/80 text-sm hover:opacity-100 transition-opacity">
             Contact
-          </Link>
-          <Link to="/features" className="font-body text-primary/80 text-sm hover:opacity-100 transition-opacity">
-            Features
-          </Link>
-          <Link to="/properties" className="font-body text-primary/80 text-sm hover:opacity-100 transition-opacity">
-            Properties
           </Link>
         </nav>
       </div>

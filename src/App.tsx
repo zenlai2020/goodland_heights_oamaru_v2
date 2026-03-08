@@ -1,20 +1,22 @@
 import { Routes, Route } from 'react-router-dom'
 import { Layout } from '@/components/Layout'
 import { HomePage } from '@/pages/HomePage'
-import { PropertiesPage } from '@/pages/PropertiesPage'
 import { AboutPage } from '@/pages/AboutPage'
 import { ContactPage } from '@/pages/ContactPage'
-import { FeaturesPage } from '@/pages/FeaturesPage'
+import { OverviewPage } from '@/pages/OverviewPage'
+import { Joy40Page } from '@/pages/Joy40Page'
+import { PremiumSectionPage } from '@/pages/PremiumSectionPage'
 
 function App() {
   return (
     <Routes>
       <Route element={<Layout />}>
         <Route path="/" element={<HomePage />} />
-        <Route path="/properties" element={<PropertiesPage />} />
+        <Route path="/overview" element={<OverviewPage />} />
+        <Route path="/joy40" element={<Joy40Page />} />
+        <Route path="/premiumsection" element={<PremiumSectionPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
-        <Route path="/features" element={<FeaturesPage />} />
       </Route>
     </Routes>
   )

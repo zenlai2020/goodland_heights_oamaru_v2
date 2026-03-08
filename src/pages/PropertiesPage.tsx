@@ -2,9 +2,9 @@ import { useState, useRef, useEffect } from 'react'
 import { Footer } from '@/components/Footer'
 
 const housingTypes = [
-  { type: 'Type 1', desc: '1 bedroom, 1 bathroom, living room', image: '/images/1a_axo.webp', id: 1 },
-  { type: 'Type 2', desc: '2 bedrooms, 1 bathroom, open plan', image: '/images/2a_axo.webp', id: 2 },
-  { type: 'Type 3', desc: '3 bedrooms, 2 bathrooms, family space', image: '/images/3a_axo.webp', id: 3 },
+  { type: 'Land 1', desc: '1 bedroom, 1 bathroom, living room', image: '/images/1a_axo.webp', id: 1 },
+  { type: 'Land 2', desc: '2 bedrooms, 1 bathroom, open plan', image: '/images/2a_axo.webp', id: 2 },
+  { type: 'Land 3', desc: '3 bedrooms, 2 bathrooms, family space', image: '/images/3a_axo.webp', id: 3 },
 ]
 
 const carouselImagesByType: Record<number, string[]> = {

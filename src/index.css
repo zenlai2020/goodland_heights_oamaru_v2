@@ -28,10 +28,23 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* 防止宽图等把整页撑开，保证随视口缩小（如 Joy40 顶部 hero） */
+#root {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
 .font-newyork {
   font-family: 'NewYork', Georgia, serif;
 }
 
 .font-body {
   font-family: 'AlimamaFangYuan', system-ui, sans-serif;
+}
+
+/* 同一家族 Alimama FangYuanTi VF：Bold + 方体，用字重与可变轴选取 */
+.font-alimama-bold-square {
+  font-family: 'AlimamaFangYuan', system-ui, sans-serif;
+  font-weight: 700;
+  font-variation-settings: 'wght' 700, 'ROND' 0;
 }

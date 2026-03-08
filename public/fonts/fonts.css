@@ -7,10 +7,11 @@
   font-display: swap;
 }
 
+/* 同一字体族，支持可变轴：粗细(wght) + 方圆(形状轴)，Bold-Square 用 font-weight + variation 选取 */
 @font-face {
   font-family: 'AlimamaFangYuan';
   src: url('/fonts/AlimamaFangYuanTiVF-Thin.ttf') format('truetype');
-  font-weight: 300 400;
+  font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
