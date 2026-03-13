@@ -7,8 +7,17 @@ export function OverviewPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
-      {/* Master plan section: joy40_bg 背景，地图 + callout */}
-      <section className="w-full pt-[90px] pb-12 tablet:pt-[96px] tablet:pb-16 desktop:pt-[96px] desktop:pb-16 px-6 tablet:px-10 desktop:px-10 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(/images/joy40_bg.webp)' }}>
+      {/* location_s.webp section - moved to top */}
+      <section className="w-full max-w-none overflow-hidden shrink-0 aspect-[21/9] bg-background-alt">
+        <img
+          src="/images/location_s.webp"
+          alt="Oamaru location"
+          className="w-full h-full object-cover object-center block"
+        />
+      </section>
+
+      {/* Master plan section: joy40_bg 背景，地图 + callout - HIDDEN */}
+      <section className="hidden w-full pt-[90px] pb-12 tablet:pt-[96px] tablet:pb-16 desktop:pt-[96px] desktop:pb-16 px-6 tablet:px-10 desktop:px-10 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(/images/joy40_bg.webp)' }}>
         <div className="w-full tablet:max-w-tablet desktop:max-w-desktop mx-auto flex flex-col tablet:flex-row desktop:flex-row tablet:items-stretch desktop:items-stretch gap-6 tablet:gap-8 desktop:gap-8">
           <div
             className="flex-1 w-full aspect-[16/9] tablet:aspect-[16/9] desktop:aspect-[2/1] rounded-xl overflow-hidden relative"
@@ -311,13 +320,6 @@ export function OverviewPage() {
 
       <FeaturesSection />
 
-      <section className="w-full max-w-none overflow-hidden shrink-0 aspect-[21/9] bg-background-alt">
-        <img
-          src="/images/location_s.webp"
-          alt="Oamaru location"
-          className="w-full h-full object-cover object-center block"
-        />
-      </section>
       <div className="flex-1" />
       <Footer />
     </div>

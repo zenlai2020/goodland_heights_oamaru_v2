@@ -99,10 +99,7 @@ export function Joy40Page() {
                     </div>
                     <div className="p-5">
                       <h3 className="font-body font-medium text-primary mb-1">{h.type}</h3>
-                      <p className="font-body text-primary/70 text-sm mb-4">{h.desc}</p>
-                      <span className="font-body text-primary text-sm inline-flex items-center gap-1">
-                        Read More +
-                      </span>
+                      <p className="font-body text-primary/70 text-sm">{h.desc}</p>
                     </div>
                   </button>
                 )
