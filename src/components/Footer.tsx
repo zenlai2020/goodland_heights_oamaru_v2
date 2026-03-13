@@ -45,9 +45,9 @@ export function Footer() {
           <Link to="/premiumsection" className="font-body text-primary/80 text-sm hover:opacity-100 transition-opacity">
             Premium Sections
           </Link>
-          <span className="font-body text-primary/80 text-sm cursor-default">
+          <a href="https://goodland.co.nz/" target="_blank" rel="noopener noreferrer" className="font-body text-primary/80 text-sm hover:opacity-100 transition-opacity">
             About Goodland Group
-          </span>
+          </a>
           <Link to="/contact" className="font-body text-primary/80 text-sm hover:opacity-100 transition-opacity">
             Contact
           </Link>

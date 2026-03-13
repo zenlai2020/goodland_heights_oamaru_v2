@@ -3,7 +3,6 @@ import {
   NAV_HEIGHT_INITIAL_PX,
   NAV_HEIGHT_SCROLLED_PX,
   NAV_HEIGHT_HOME_INITIAL_PX,
-  NAV_TITLE_FONT_SIZE_PX,
   NAV_TITLE_SCROLLED_FONT_SIZE_PX,
   NAV_TITLE_CONTAINER_W_PX,
   NAV_PADDING_PX,
@@ -35,12 +34,11 @@ export function NavBar({ scrollProgress = 0, onMenuClick, isHome, variant = 'dar
   const titleTransition = Math.max(0, Math.min((scrollProgress - 0.08) / 0.5, 1))
 
   const isHomeExpanded = isHome && !isScrolled
+  /** 首页：从 clamp(2.5rem,8vw,96px) 平滑过渡到 32px，避免手机端先放大再缩小 */
   const titleFontSize =
-    isHomeExpanded
-      ? NAV_TITLE_FONT_SIZE_PX
-      : isHome
-        ? NAV_TITLE_FONT_SIZE_PX - (NAV_TITLE_FONT_SIZE_PX - NAV_TITLE_SCROLLED_FONT_SIZE_PX) * titleTransition
-        : undefined
+    isHome
+      ? `calc((clamp(2.5rem, 8vw, 96px) * (1 - ${titleTransition})) + (${NAV_TITLE_SCROLLED_FONT_SIZE_PX}px * ${titleTransition}))`
+      : undefined
 
   const height =
     isHome
@@ -65,11 +63,19 @@ export function NavBar({ scrollProgress = 0, onMenuClick, isHome, variant = 'dar
       }}
     >
       <div
-        className="flex items-center justify-between mx-auto w-full max-w-[1440px]"
+        className="flex items-center mx-auto w-full max-w-[1440px] justify-between"
         style={{ gap: `${NAV_GAP_PX}px` }}
       >
-        <div className="flex-1 flex flex-col items-start min-w-0 self-stretch">
-          <div className="w-full">
+        {/* 首页展开时：左 spacer 使中间内容整体居中；非展开时：不占位 */}
+        <div className={isHomeExpanded ? 'flex-1 min-w-0' : 'flex-none'} aria-hidden />
+
+        {/* 中间：Goodland Heights + A Horizon of Mountain and Sea + 横线；手机端需 max-w-full 防止溢出导致不居中 */}
+        <div
+          className={`flex flex-col self-stretch ${
+            isHomeExpanded ? 'items-center justify-center flex-none min-w-0 max-w-full' : 'items-start flex-1 min-w-0'
+          }`}
+        >
+          <div className={isHomeExpanded ? 'flex flex-col items-center w-full max-w-full' : 'w-full'}>
             <Link
               to="/"
               state={!isHome ? { skipLanding: true } : undefined}
@@ -78,10 +84,10 @@ export function NavBar({ scrollProgress = 0, onMenuClick, isHome, variant = 'dar
               }`}
               style={{
                 ...(isHome && {
-                  fontSize: `${titleFontSize}px`,
+                  fontSize: typeof titleFontSize === 'string' ? titleFontSize : titleFontSize != null ? `${titleFontSize}px` : undefined,
                   maxWidth: isHomeExpanded ? `${NAV_TITLE_CONTAINER_W_PX}px` : undefined,
-                  marginLeft: `${50 * (1 - titleTransition)}%`,
-                  transform: `translateX(${-50 * (1 - titleTransition)}%)`,
+                  marginLeft: isHomeExpanded ? undefined : `${50 * (1 - titleTransition)}%`,
+                  transform: isHomeExpanded ? undefined : `translateX(${-50 * (1 - titleTransition)}%)`,
                 }),
                 ...(!isHome && !nonHomeUseLight && {
                   textShadow: '0 0 1px rgba(255,255,255,0.5), 0 1px 2px rgba(0,0,0,0.08)',
@@ -106,32 +112,34 @@ export function NavBar({ scrollProgress = 0, onMenuClick, isHome, variant = 'dar
           </div>
           {isHome && sloganOpacity > 0.01 && (
             <div
-              className="w-full flex items-center justify-center gap-4 tablet:gap-6 mt-2 relative"
+              className={`flex items-center justify-center mt-2 relative w-full ${isHomeExpanded ? '' : 'w-full'}`}
               style={{ opacity: sloganOpacity }}
             >
-              <div className="flex items-center justify-center gap-4 tablet:gap-6" style={{ opacity: 1 - titleTransition }}>
-                <span className="h-px shrink-0 bg-white/90" style={{ width: isHomeExpanded ? 80 : 48 }} aria-hidden />
-                <span className="font-body tracking-wide text-center whitespace-nowrap text-lg tablet:text-xl text-white">
+              <div className="flex flex-wrap items-center justify-center gap-2 tablet:gap-4 desktop:gap-6" style={{ opacity: 1 - titleTransition }}>
+                <span className="h-px shrink-0 bg-white/90 w-8 tablet:w-12 desktop:w-[80px]" aria-hidden />
+                <span className="font-body tracking-wide text-center text-sm tablet:text-lg desktop:text-xl text-white whitespace-normal tablet:whitespace-nowrap">
                   A Horizon of Mountain and Sea
                 </span>
-                <span className="h-px shrink-0 bg-white/90" style={{ width: isHomeExpanded ? 80 : 48 }} aria-hidden />
+                <span className="h-px shrink-0 bg-white/90 w-8 tablet:w-12 desktop:w-[80px]" aria-hidden />
               </div>
               <div
-                className="flex items-center justify-center gap-4 tablet:gap-6 absolute inset-0"
+                className="flex flex-wrap items-center justify-center gap-2 tablet:gap-4 desktop:gap-6 absolute inset-0"
                 style={{ opacity: titleTransition }}
                 aria-hidden
               >
-                <span className="h-px shrink-0 bg-primary/80" style={{ width: isHomeExpanded ? 80 : 48 }} />
-                <span className="font-body tracking-wide text-center whitespace-nowrap text-lg tablet:text-xl text-primary">
+                <span className="h-px shrink-0 bg-primary/80 w-8 tablet:w-12 desktop:w-[80px]" />
+                <span className="font-body tracking-wide text-center text-sm tablet:text-lg desktop:text-xl text-primary whitespace-normal tablet:whitespace-nowrap">
                   A Horizon of Mountain and Sea
                 </span>
-                <span className="h-px shrink-0 bg-primary/80" style={{ width: isHomeExpanded ? 80 : 48 }} />
+                <span className="h-px shrink-0 bg-primary/80 w-8 tablet:w-12 desktop:w-[80px]" />
               </div>
             </div>
           )}
         </div>
 
-        <button
+        {/* 右 spacer + 菜单按钮：首页展开时 flex-1 使中间居中，菜单靠右 */}
+        <div className={`flex items-center ${isHomeExpanded ? 'flex-1 justify-end min-w-0' : 'flex-none'}`}>
+          <button
           type="button"
           onClick={onMenuClick}
           className="relative p-2 hover:opacity-80 transition-opacity shrink-0 w-14 h-14 flex items-center justify-center -mt-1"
@@ -191,6 +199,7 @@ export function NavBar({ scrollProgress = 0, onMenuClick, isHome, variant = 'dar
             </svg>
           )}
         </button>
+        </div>
       </div>
     </header>
   )

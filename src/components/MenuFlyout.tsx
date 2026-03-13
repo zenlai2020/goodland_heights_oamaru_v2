@@ -18,7 +18,7 @@ const links = [
   { to: '/overview', label: 'Goodland Heights Oamaru' },
   { to: '/joy40', label: 'Joy 40 - Services Apartment' },
   { to: '/premiumsection', label: 'Premium Sections' },
-  { to: '/about', label: 'About Goodland Group', disabled: true },
+  { href: 'https://goodland.co.nz/', label: 'About Goodland Group', external: true },
   { to: '/contact', label: 'Contact' },
 ]
 
@@ -90,37 +90,43 @@ export function MenuFlyout({ open, onClose }: MenuFlyoutProps) {
             </span>
           </button>
           <nav className="flex flex-col flex-1 justify-stretch">
-            {links.map(({ to, label, disabled }, index) => (
-              disabled ? (
-                <span
-                  key={to}
-                  className="flex-1 flex items-center justify-center text-center font-newyork text-primary text-2xl tablet:text-4xl desktop:text-5xl transition-colors duration-200 border-b border-primary/15 min-h-0 cursor-default"
-                  style={{
-                    transform: linkVisible ? 'translateX(0)' : 'translateX(100%)',
-                    opacity: linkVisible ? 1 : 0,
-                    transition: `transform ${isClosing ? LINK_TRANSITION_MS_EXIT : LINK_TRANSITION_MS}ms ${EASE_OUT_CURVE}, opacity ${isClosing ? LINK_TRANSITION_MS_EXIT : LINK_TRANSITION_MS}ms ${EASE_OUT_CURVE}`,
-                    transitionDelay: `${index * (isClosing ? STAGGER_MS_EXIT : STAGGER_MS)}ms`,
-                  }}
-                >
-                  {label}
-                </span>
-              ) : (
+            {links.map((link, index) => {
+              const { to, href, label, external } = link
+              const key = to ?? href ?? label
+              const style = {
+                transform: linkVisible ? 'translateX(0)' : 'translateX(100%)',
+                opacity: linkVisible ? 1 : 0,
+                transition: `transform ${isClosing ? LINK_TRANSITION_MS_EXIT : LINK_TRANSITION_MS}ms ${EASE_OUT_CURVE}, opacity ${isClosing ? LINK_TRANSITION_MS_EXIT : LINK_TRANSITION_MS}ms ${EASE_OUT_CURVE}`,
+                transitionDelay: `${index * (isClosing ? STAGGER_MS_EXIT : STAGGER_MS)}ms`,
+              }
+              const baseClass = 'flex-1 flex items-center justify-center text-center font-newyork text-primary hover:text-white text-2xl tablet:text-4xl desktop:text-5xl transition-colors duration-200 border-b border-primary/15 min-h-0'
+              if (external && href) {
+                return (
+                  <a
+                    key={key}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={onClose}
+                    className={baseClass}
+                    style={style}
+                  >
+                    {label}
+                  </a>
+                )
+              }
+              return (
                 <Link
-                  key={to}
-                  to={to}
+                  key={key}
+                  to={to!}
                   onClick={onClose}
-                  className="flex-1 flex items-center justify-center text-center font-newyork text-primary hover:text-white text-2xl tablet:text-4xl desktop:text-5xl transition-colors duration-200 border-b border-primary/15 min-h-0"
-                  style={{
-                    transform: linkVisible ? 'translateX(0)' : 'translateX(100%)',
-                    opacity: linkVisible ? 1 : 0,
-                    transition: `transform ${isClosing ? LINK_TRANSITION_MS_EXIT : LINK_TRANSITION_MS}ms ${EASE_OUT_CURVE}, opacity ${isClosing ? LINK_TRANSITION_MS_EXIT : LINK_TRANSITION_MS}ms ${EASE_OUT_CURVE}`,
-                    transitionDelay: `${index * (isClosing ? STAGGER_MS_EXIT : STAGGER_MS)}ms`,
-                  }}
+                  className={baseClass}
+                  style={style}
                 >
                   {label}
                 </Link>
               )
-            ))}
+            })}
           </nav>
         </div>
       </aside>
