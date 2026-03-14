@@ -8,9 +8,9 @@ const housingTypes = [
 ]
 
 const carouselImagesByType: Record<number, string[]> = {
-  1: ['/images/a1a_1.png', '/images/a1a_2.png', '/images/a1a_3.png'],
-  2: ['/images/a2a_1.png', '/images/a2a_2.png', '/images/a2a_3.png'],
-  3: ['/images/a3a_1.png', '/images/a3a_2.png', '/images/a3a_3.png'],
+  1: ['/images/1a-1.webp', '/images/1a-2.webp', '/images/1a-3.webp', '/images/1a-4.webp', '/images/1a-5.webp'],
+  2: ['/images/2a_1.webp', '/images/2a-2.webp', '/images/2a-3.webp', '/images/2a-4.webp', '/images/2a-5.webp'],
+  3: ['/images/3a-1.webp', '/images/3a-2.webp', '/images/3a-3.webp', '/images/3a-4.webp', '/images/3a-5.webp'],
 }
 
 export function Joy40Page() {
@@ -123,7 +123,7 @@ export function Joy40Page() {
                   />
                   <button
                     type="button"
-                    onClick={() => handleCarouselChange((carouselIndex - 1 + 3) % 3)}
+                    onClick={() => handleCarouselChange((carouselIndex - 1 + carouselImages.length) % carouselImages.length)}
                     className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center hover:opacity-90 transition-opacity"
                     aria-label="Previous image"
                   >
@@ -131,21 +131,21 @@ export function Joy40Page() {
                   </button>
                   <button
                     type="button"
-                    onClick={() => handleCarouselChange((carouselIndex + 1) % 3)}
+                    onClick={() => handleCarouselChange((carouselIndex + 1) % carouselImages.length)}
                     className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center hover:opacity-90 transition-opacity"
                     aria-label="Next image"
                   >
                     <img src="/images/arrow.webp" alt="" className="w-full h-full object-contain scale-x-[-1]" />
                   </button>
                 </div>
-                <div className="flex justify-center items-center gap-3 mt-3 w-[180px] mx-auto">
+                <div className="flex justify-center items-center gap-3 mt-3 w-[280px] mx-auto">
                   {carouselImages.map((_, i) => (
                     <button
                       key={i}
                       type="button"
                       onClick={() => handleCarouselChange(i)}
                       className={`h-0.5 transition-all duration-200 ${
-                        i === carouselIndex ? 'flex-[2] bg-primary' : 'flex-[1] min-w-[24px] bg-gray-400'
+                        i === carouselIndex ? 'flex-[2.67] bg-primary' : 'flex-[1] min-w-[20px] bg-gray-400'
                       }`}
                       aria-label={`Image ${i + 1}`}
                     />
