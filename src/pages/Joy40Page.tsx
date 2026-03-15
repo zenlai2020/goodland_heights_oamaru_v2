@@ -1,10 +1,11 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { Footer } from '@/components/Footer'
 
 const housingTypes = [
-  { type: 'Apartment Type 1', desc: '1 bedroom, 1 bathroom, 1 living room, 1 kitchen', image: '/images/1a_axo.webp', id: 1 },
-  { type: 'Apartment Type 2', desc: '1 bedroom, 1 bathroom, 1 living room, 1 kitchen', image: '/images/2a_axo.webp', id: 2 },
-  { type: 'Apartment Type 3', desc: '1 bedroom, 1 bathroom, 1 kitchen', image: '/images/3a_axo.webp', id: 3 },
+  { type: 'Apartment Type 1', desc: 'A compact and quiet retreat, thoughtfully designed for a restful stay', image: '/images/1a_axo.webp', id: 1, area: 'approx. 32–36 sqm', floorPlan: '/images/03_building plan_1.webp' },
+  { type: 'Apartment Type 2', desc: 'A spacious one-bedroom apartment, many offering beautiful sea views', image: '/images/2a_axo.webp', id: 2, area: 'approx. 50–62 sqm', floorPlan: '/images/03_building plan_2.webp' },
+  { type: 'Apartment Type 3', desc: 'A distinctive corner layout with a more open and characterful living space', image: '/images/3a_axo.webp', id: 3, area: 'approx. 45–50 sqm', floorPlan: '/images/03_building plan_3.webp' },
 ]
 
 const carouselImagesByType: Record<number, string[]> = {
@@ -156,20 +157,20 @@ export function Joy40Page() {
               <div className="flex flex-col order-2">
                 <div className="w-full aspect-[3/2] rounded-lg overflow-hidden bg-background mb-4">
                   <img
-                    src="/images/03_building plan.webp"
+                    src={housingTypes.find(h => h.id === selectedType)?.floorPlan ?? '/images/03_building plan.webp'}
                     alt="Floor plan"
                     className="w-full h-full object-contain"
                   />
                 </div>
                 <div className="pl-6">
                   <h3 className="font-newyork text-primary text-2xl mb-1">{housingTypes.find(h => h.id === selectedType)?.type ?? 'Apartment Type 1'}</h3>
-                  <p className="font-body text-primary/80 text-sm mb-4">40.5m²</p>
-                  <button
-                    type="button"
-                    className="w-fit mt-16 px-6 py-3 border-2 border-primary text-primary font-body text-sm rounded hover:bg-primary hover:text-white transition-colors"
+                  <p className="font-body text-primary/80 text-sm mb-4">{housingTypes.find(h => h.id === selectedType)?.area ?? ''}</p>
+                  <Link
+                    to="/contact"
+                    className="inline-block w-fit mt-16 px-6 py-3 border-2 border-primary text-primary font-body text-sm rounded hover:bg-primary hover:text-white transition-colors"
                   >
-                    Booking Viewing
-                  </button>
+                    Enquire Now
+                  </Link>
                 </div>
               </div>
             </div>
