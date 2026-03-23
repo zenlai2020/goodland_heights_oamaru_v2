@@ -13,9 +13,13 @@ export function HeroSection({ scrollProgress }: HeroSectionProps) {
       className="relative w-full overflow-hidden bg-[#e8ecf0]"
       style={{ height: `${heightVh}vh` }}
     >
-      <div
-        className="absolute inset-0 bg-cover bg-top bg-no-repeat"
-        style={{ backgroundImage: `url(/images/hero_bg.webp)` }}
+      <video
+        className="absolute inset-0 h-full w-full object-cover object-top"
+        src="/images/hero_bg.webm"
+        autoPlay
+        muted
+        loop
+        playsInline
       />
       {/* Slogan 已移至 NavBar 的 1440×240 导航容器内，位于 Goodland Heights 下方 */}
     </section>
