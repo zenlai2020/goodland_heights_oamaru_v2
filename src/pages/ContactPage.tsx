@@ -6,27 +6,63 @@ const CONTACT_EMAIL = 'info@goodlandheights.com'
 const CONTACT_PHONE = '+64 3 434 1234'
 const CONTACT_ADDRESS = 'North Canterbury, Goodland 9400\nNew Zealand'
 
+// FormSubmit.co: unlimited free, no signup. First submit triggers email confirmation at recipient.
+const CONTACT_RECIPIENT = import.meta.env.VITE_CONTACT_EMAIL || 'info@goodlandheights.com'
+const FORMSUBMIT_ENDPOINT = `https://formsubmit.co/ajax/${CONTACT_RECIPIENT}`
+
 export function ContactPage() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState('')
   const [privacyConsent, setPrivacyConsent] = useState(false)
   const [touched, setTouched] = useState({ name: false, email: false, message: false })
+  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle')
+  const [errorMessage, setErrorMessage] = useState('')
 
   const nameError = touched.name && !name.trim()
   const emailError = touched.email && !email.trim()
   const messageError = touched.message && !message.trim()
   const isValid = name.trim() && email.trim() && message.trim() && privacyConsent
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!isValid) return
 
-    const subject = encodeURIComponent(`Contact from ${name.trim()}`)
-    const body = encodeURIComponent(
-      `Name: ${name.trim()}\nEmail: ${email.trim()}\n\nMessage:\n${message.trim()}`
-    )
-    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`
+    setStatus('sending')
+    setErrorMessage('')
+
+    try {
+      const res = await fetch(FORMSUBMIT_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          name: name.trim(),
+          email: email.trim(),
+          message: message.trim(),
+          _subject: `Contact from ${name.trim()}`,
+          _replyto: email.trim(),
+        }),
+      })
+
+      if (res.ok) {
+        setStatus('success')
+        setName('')
+        setEmail('')
+        setMessage('')
+        setPrivacyConsent(false)
+        setTouched({ name: false, email: false, message: false })
+      } else {
+        const data = await res.json().catch(() => ({}))
+        setStatus('error')
+        setErrorMessage((data as { message?: string }).message || data.error || 'Send failed. Please try again.')
+      }
+    } catch {
+      setStatus('error')
+      setErrorMessage('Network error. Please try again.')
+    }
   }
 
   return (
@@ -120,13 +156,22 @@ export function ContactPage() {
                 </label>
               </div>
 
+              {status === 'success' && (
+                <p className="font-body text-green-600 text-sm">
+                  Message sent successfully. We will get back to you soon.
+                </p>
+              )}
+              {status === 'error' && (
+                <p className="font-body text-red-500 text-sm">{errorMessage}</p>
+              )}
+
               <button
                 type="submit"
-                disabled={!isValid}
+                disabled={!isValid || status === 'sending'}
                 className="w-fit px-8 py-3 font-body font-medium text-white bg-primary hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors rounded flex items-center gap-2 uppercase text-sm"
               >
-                SEND
-                <span aria-hidden>→</span>
+                {status === 'sending' ? 'SENDING...' : 'SEND'}
+                {status !== 'sending' && <span aria-hidden>→</span>}
               </button>
             </form>
 

@@ -34,6 +34,14 @@ Place your font files in `public/fonts/`:
 
 If the files are missing, the app falls back to system fonts (Georgia, system-ui).
 
+## Contact form (FormSubmit.co)
+
+The contact form sends emails via [FormSubmit.co](https://formsubmit.co) – unlimited free, no signup.
+
+1. First time: fill out and submit the form. FormSubmit will send a **confirmation email** to the recipient (default: `info@goodlandheights.com`). Click the confirmation link in that email.
+2. After confirmation, submissions will be delivered directly.
+3. To change the recipient: set `VITE_CONTACT_EMAIL=your@email.com` in `.env`, then restart `npm run dev`.
+
 ## Routes
 
 - `/` – Home (Landing → Hero, Products, Why Oamaru, Features, Footer)
