@@ -11,20 +11,55 @@ export function HeroSection({ scrollProgress }: HeroSectionProps) {
   const heightVh = HERO_INITIAL_H + (HERO_FINAL_H - HERO_INITIAL_H) * scrollProgress
   const videoRef = useRef<HTMLVideoElement>(null)
 
-  // 手机端微信等环境下，autoplay 可能不生效，需程序触发 play
+  // 微信：需通过 WeixinJSBridge 触发 play。WhatsApp/Telegram 等：用 canplay 重试，避免视频未加载完成时 play 失效
   useEffect(() => {
     const video = videoRef.current
     if (!video) return
-    const play = () => {
-      video.play().catch(() => {})
+
+    const doPlay = () => {
+      const isPlaying =
+        video.currentTime > 0 &&
+        !video.paused &&
+        !video.ended &&
+        video.readyState > 2
+      if (!isPlaying) {
+        video.play().catch(() => {})
+      }
     }
-    play()
-    // 页面可见时再试一次（如从后台切回）
+
+    const isWeChat = /MicroMessenger/i.test(navigator.userAgent)
+
+    if (isWeChat && window.WeixinJSBridge) {
+      window.WeixinJSBridge.invoke('getNetworkType', {}, doPlay)
+    } else if (isWeChat) {
+      document.addEventListener('WeixinJSBridgeReady', () => {
+        window.WeixinJSBridge?.invoke('getNetworkType', {}, doPlay)
+      })
+    } else {
+      doPlay()
+    }
+
+    // WhatsApp、Telegram 等内置浏览器：视频加载完成后再试一次（部分 WebView 需此步骤）
+    const onCanPlay = () => doPlay()
+    video.addEventListener('canplay', onCanPlay)
+    video.addEventListener('loadeddata', onCanPlay)
+
     const onVisibilityChange = () => {
-      if (document.visibilityState === 'visible') play()
+      if (document.visibilityState === 'visible') {
+        if (isWeChat && window.WeixinJSBridge) {
+          window.WeixinJSBridge.invoke('getNetworkType', {}, doPlay)
+        } else {
+          doPlay()
+        }
+      }
     }
     document.addEventListener('visibilitychange', onVisibilityChange)
-    return () => document.removeEventListener('visibilitychange', onVisibilityChange)
+
+    return () => {
+      document.removeEventListener('visibilitychange', onVisibilityChange)
+      video.removeEventListener('canplay', onCanPlay)
+      video.removeEventListener('loadeddata', onCanPlay)
+    }
   }, [])
 
   return (
@@ -41,6 +76,7 @@ export function HeroSection({ scrollProgress }: HeroSectionProps) {
         playsInline
         webkit-playsinline
         x5-playsinline="true"
+        x-webkit-airplay="allow"
         x5-video-player-type="h5"
         x5-video-player-fullscreen="true"
         x5-video-orientation="portrait"
