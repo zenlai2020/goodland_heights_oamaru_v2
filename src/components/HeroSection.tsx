@@ -45,11 +45,8 @@ export function HeroSection({ scrollProgress }: HeroSectionProps) {
         x5-video-player-fullscreen="true"
         x5-video-orientation="portrait"
         preload="auto"
-      >
-        {/* MP4 放首位：手机微信 X5 内核不支持 WebM，优先用 MP4 避免 fallback 失效 */}
-        <source src="/images/hero_bg.mp4" type="video/mp4" />
-        <source src="/images/hero_bg.webm" type="video/webm" />
-      </video>
+        src="/images/hero_bg.mp4"
+      />
       {/* Slogan 已移至 NavBar 的 1440×240 导航容器内，位于 Goodland Heights 下方 */}
     </section>
   )
