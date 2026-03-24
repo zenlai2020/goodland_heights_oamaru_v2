@@ -3,7 +3,7 @@ import { Footer } from '@/components/Footer'
 import { Link } from 'react-router-dom'
 
 const CONTACT_EMAIL = 'info@goodlandheights.com'
-const CONTACT_PHONE = '+64 3 434 1234'
+const CONTACT_PHONE = '+64 9 5202010'
 const CONTACT_ADDRESS = 'North Canterbury, Goodland 9400\nNew Zealand'
 
 // FormSubmit.co: unlimited free, no signup. First submit triggers email confirmation at recipient.
