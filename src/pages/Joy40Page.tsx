@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Footer } from '@/components/Footer'
+import { Joy40ContactSalesFloating } from '@/components/Joy40ContactSalesFloating'
 
 const housingTypes = [
   { type: 'Apartment Type 1', desc: 'A compact and quiet retreat, thoughtfully designed for a restful stay', image: '/images/1a_axo.webp', id: 1, area: 'approx. 32–36 sqm', floorPlan: '/images/03_building plan_1.webp' },
@@ -248,6 +249,7 @@ export function Joy40Page() {
           </div>
         </div>
       </section>
+      <Joy40ContactSalesFloating />
       <Footer />
     </div>
   )

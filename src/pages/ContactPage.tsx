@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { Footer } from '@/components/Footer'
 import { Link } from 'react-router-dom'
+import { SalesContactCard } from '@/components/SalesContactCard'
+import { SALES_TEAM } from '@/data/salesTeam'
 
 const CONTACT_EMAIL = 'info@goodlandheights.com'
 const CONTACT_PHONE = '+64 9 5202010'
@@ -73,12 +75,14 @@ export function ContactPage() {
             Contact
           </h1>
 
-          <div className="flex flex-col desktop:flex-row gap-12 tablet:gap-16 desktop:gap-20">
-            {/* Left: Contact Form */}
-            <form
-              onSubmit={handleSubmit}
-              className="flex-1 flex flex-col gap-6"
-            >
+          <div className="flex flex-col desktop:flex-row gap-12 tablet:gap-16 desktop:gap-20 desktop:items-start">
+            {/* Left area: form (half of former left column) + sales cards */}
+            <div className="flex flex-col desktop:flex-row gap-12 tablet:gap-16 desktop:gap-10 flex-1 min-w-0 desktop:items-stretch">
+              {/* Contact Form */}
+              <form
+                onSubmit={handleSubmit}
+                className="flex flex-col gap-6 desktop:flex-1 desktop:min-w-0"
+              >
               <div>
                 <label htmlFor="name" className="block font-body font-medium text-primary mb-2">
                   Name
@@ -173,7 +177,15 @@ export function ContactPage() {
                 {status === 'sending' ? 'SENDING...' : 'SEND'}
                 {status !== 'sending' && <span aria-hidden>→</span>}
               </button>
-            </form>
+              </form>
+
+              {/* Middle: Sales cards — column height matches form; cards share space equally */}
+              <div className="flex flex-col gap-6 desktop:flex-1 desktop:min-h-0 desktop:min-w-0">
+                {SALES_TEAM.map((person) => (
+                  <SalesContactCard key={person.email} person={person} layout="contact" />
+                ))}
+              </div>
+            </div>
 
             {/* Right: Contact Details */}
             <div className="desktop:min-w-[280px] desktop:max-w-[320px]">
