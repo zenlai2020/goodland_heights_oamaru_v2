@@ -1,7 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
+import type { SalesPerson } from '@/data/salesTeam'
 import { JOY40_SALES_CARDS } from '@/data/salesTeam'
 import { SalesContactCard } from '@/components/SalesContactCard'
+
+export type ContactSalesFloatingProps = {
+  /** Contact 页销售卡片子集，例如 Joy40 用前两张、Premium Section 用第三张 */
+  cards: SalesPerson[]
+}
 
 /** 相对整页内容「贴住」滚动：先随页面上移，此阶段持续约 SCROLL_LAG_MS */
 const SCROLL_LAG_MS = 500
@@ -37,7 +43,7 @@ function smoothDamp(
   return target + (change + temp) * exp
 }
 
-export function Joy40ContactSalesFloating() {
+export function ContactSalesFloating({ cards }: ContactSalesFloatingProps) {
   const [expanded, setExpanded] = useState(false)
   const wrapRef = useRef<HTMLDivElement>(null)
   const currentOffsetRef = useRef(0)
@@ -164,10 +170,10 @@ export function Joy40ContactSalesFloating() {
           className="fixed z-[100] bottom-4 right-4 left-4 tablet:left-auto w-[min(100vw-2rem,34rem)] max-w-[min(100vw-2rem,34rem)] max-h-[min(90vh,720px)] overflow-y-auto rounded-xl border border-primary/25 bg-background shadow-xl p-4 tablet:p-5 flex flex-col gap-4"
           role="dialog"
           aria-modal="false"
-          aria-labelledby="joy40-contact-sales-title"
+          aria-labelledby="contact-sales-floating-title"
         >
             <div className="flex items-start justify-between gap-3">
-              <h2 id="joy40-contact-sales-title" className="font-newyork text-primary text-xl tablet:text-2xl">
+              <h2 id="contact-sales-floating-title" className="font-newyork text-primary text-xl tablet:text-2xl">
                 Contact Sales
               </h2>
               <button
@@ -179,7 +185,7 @@ export function Joy40ContactSalesFloating() {
               </button>
             </div>
             <div className="flex flex-col gap-4">
-              {JOY40_SALES_CARDS.map((person) => (
+              {cards.map((person) => (
                 <SalesContactCard key={person.email} person={person} layout="inline" />
               ))}
             </div>
@@ -217,4 +223,9 @@ export function Joy40ContactSalesFloating() {
       {panel}
     </>
   )
+}
+
+/** Joy40 页：展开为 Contact 页第 1、2 张销售卡片 */
+export function Joy40ContactSalesFloating() {
+  return <ContactSalesFloating cards={JOY40_SALES_CARDS} />
 }

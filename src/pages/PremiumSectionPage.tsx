@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { Footer } from '@/components/Footer'
+import { ContactSalesFloating } from '@/components/Joy40ContactSalesFloating'
+import { PREMIUM_SECTION_SALES_CARDS } from '@/data/salesTeam'
 
 const carouselImages = ['/images/land_01.webp', '/images/land_02.webp', '/images/land_03.webp']
 const plotLabels = ['Private Plot 01', 'Private Plot 02', 'Private Plot 03']
@@ -127,6 +129,7 @@ export function PremiumSectionPage() {
             </div>
           </div>
         </section>
+      <ContactSalesFloating cards={PREMIUM_SECTION_SALES_CARDS} />
       <Footer />
     </div>
   )

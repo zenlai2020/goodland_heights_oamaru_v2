@@ -21,8 +21,8 @@ export function SalesContactCard({ person, layout = 'contact' }: SalesContactCar
       <div
         className={
           isContact
-            ? 'shrink-0 w-[104px] h-[104px] rounded overflow-hidden bg-white desktop:w-40 desktop:h-full desktop:min-h-[7.5rem] desktop:self-stretch'
-            : 'shrink-0 w-[104px] h-[104px] rounded overflow-hidden bg-white'
+            ? 'ml-4 shrink-0 w-[104px] h-[104px] rounded overflow-hidden bg-white desktop:w-40 desktop:h-full desktop:min-h-[7.5rem] desktop:self-stretch'
+            : 'ml-4 shrink-0 w-[104px] h-[104px] rounded overflow-hidden bg-white'
         }
       >
         <img
@@ -36,7 +36,10 @@ export function SalesContactCard({ person, layout = 'contact' }: SalesContactCar
         />
       </div>
       <div className="min-w-0 flex flex-col justify-center gap-2 font-body py-0.5 pl-1 desktop:pl-4">
-        <p className="font-medium text-primary">{person.title}</p>
+        <div className="flex flex-col gap-2.5">
+          <p className="font-medium text-primary">{person.title}</p>
+          <p className="font-normal text-primary">{person.name}</p>
+        </div>
         <div>
           <p className="text-xs font-medium text-primary/70 mb-0.5">Phone</p>
           <p className="text-sm text-primary/80">
